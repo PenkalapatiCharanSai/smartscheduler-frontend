@@ -1,0 +1,435 @@
+/* AssignSchedule.css */
+/* :root {
+  --primary-color: #3f51b5;
+  --primary-dark: #303f9f;
+  --primary-light: #c5cae9;
+  --accent-color: #ff4081;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --divider-color: #bdbdbd;
+  --background: #f5f5f5;
+  --white: #ffffff;
+  --error: #f44336;
+  --success: #4caf50;
+  --warning: #ff9800;
+}
+
+.assign-schedule-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background);
+}
+
+.assign-schedule-container h2 {
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.assign-schedule-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 1.5px;
+}
+
+.professor-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.professor-card {
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+.professor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.professor-card h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.schedule-modal {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.schedule-modal h3 {
+  color: var(--primary-dark);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.schedule-modal h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 1px;
+}
+
+.schedule-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.schedule-form select,
+.schedule-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--divider-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: var(--background);
+}
+
+.schedule-form select:focus,
+.schedule-form input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+  background-color: var(--white);
+}
+
+.schedule-form input[readonly] {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--text-secondary);
+}
+
+.table-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.table-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table-actions button:first-child {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.table-actions button:first-child:hover {
+  background-color: var(--primary-dark);
+}
+
+.table-actions button:nth-child(2) {
+  background-color: var(--warning);
+  color: var(--white);
+}
+
+.table-actions button:nth-child(2):hover {
+  background-color: #e68900;
+}
+
+.table-actions button:last-child {
+  background-color: var(--text-secondary);
+  color: var(--white);
+}
+
+.table-actions button:last-child:hover {
+  background-color: var(--text-primary);
+}
+
+.schedule-modal h4 {
+  color: var(--primary-dark);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.schedule-table th {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.schedule-table td {
+  padding: 0.75rem;
+} */
+/* AssignSchedule.css */
+:root {
+  --primary-color: #3f51b5;
+  --primary-dark: #303f9f;
+  --primary-light: #c5cae9;
+  --accent-color: #ff4081;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --divider-color: #bdbdbd;
+  --background: #f5f5f5;
+  --white: #ffffff;
+  --error: #f44336;
+  --success: #4caf50;
+  --warning: #ff9800;
+}
+
+.assign-schedule-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background);
+  min-height: 100vh;
+  position: relative; /* For positioning the modal overlay */
+}
+
+.assign-schedule-container h2 {
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.assign-schedule-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 1.5px;
+}
+
+/* Modal Overlay for background dimming */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* Schedule Modal styles */
+.schedule-modal {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  max-height: 80vh; /* Limit height to fit screen */
+  overflow-y: auto; /* Scroll if content overflows */
+  position: relative;
+  z-index: 1001; /* Above the overlay */
+}
+
+.schedule-modal h3 {
+  color: var(--primary-dark);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.schedule-modal h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: var(--accent-color);
+  border-radius: 1px;
+}
+
+.schedule-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.schedule-form select,
+.schedule-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--divider-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: var(--background);
+}
+
+.schedule-form select:focus,
+.schedule-form input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+  background-color: var(--white);
+}
+
+.schedule-form input[readonly] {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--text-secondary);
+}
+
+.table-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.table-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table-actions button:first-child {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.table-actions button:first-child:hover {
+  background-color: var(--primary-dark);
+}
+
+.table-actions button:nth-child(2) {
+  background-color: var(--warning);
+  color: var(--white);
+}
+
+.table-actions button:nth-child(2):hover {
+  background-color: #e68900;
+}
+
+.table-actions button:last-child {
+  background-color: var(--text-secondary);
+  color: var(--white);
+}
+
+.table-actions button:last-child:hover {
+  background-color: var(--text-primary);
+}
+
+.schedule-modal h4 {
+  color: var(--primary-dark);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.schedule-table th {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.schedule-table td {
+  padding: 0.75rem;
+}
+
+/* Professor Cards styles */
+.professor-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.professor-card {
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+.professor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.professor-card h4 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}

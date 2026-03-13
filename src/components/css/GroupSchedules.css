@@ -1,0 +1,152 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --background-light: #ecf0f1;
+  --text-color: #333;
+  --border-color: #bdc3c7;
+}
+
+.group-schedules-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+.group-schedules-container h2 {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.8rem;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+.group-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.group-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.group-buttons button:hover,
+.group-buttons button.active {
+  background-color: var(--secondary-color);
+  color: white;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.timetable {
+  margin-top: 1.5rem;
+}
+
+.timetable h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.timetable table,
+.faculty-details table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.timetable thead th,
+.faculty-details thead th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timetable tbody tr:nth-child(even),
+.faculty-details tbody tr:nth-child(even) {
+  background-color: var(--background-light);
+}
+
+.timetable td,
+.faculty-details td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-color);
+  transition: background-color 0.2s ease;
+}
+
+.timetable tbody tr:hover td,
+.faculty-details tbody tr:hover td {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.faculty-details {
+  margin-top: 1.5rem;
+}
+
+.faculty-details h4 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .group-schedules-container {
+    padding: 1rem;
+  }
+
+  .group-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .group-buttons button {
+    flex-grow: 1;
+    margin: 0.25rem;
+  }
+
+  .timetable table,
+  .faculty-details table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Loading State */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  font-weight: 500;
+}

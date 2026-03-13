@@ -1,0 +1,226 @@
+/* Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #3a7bd5;
+  --primary-gradient: linear-gradient(to right, #3a7bd5, #3a6073);
+  --secondary-color: #6d5dfc;
+  --accent-color: #ff7e5f;
+  --text-color: #333;
+  --error-color: #ff4757;
+  --success-color: #2ed573;
+  --warning-color: #ffa502;
+  --light-bg: #f9f9f9;
+  --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  --input-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+  --button-shadow: 0 4px 12px rgba(58, 123, 213, 0.3);
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-bg);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(58, 123, 213, 0.05) 0%, transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(255, 126, 95, 0.05) 0%, transparent 30%);
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  color: var(--text-color);
+}
+
+.login-container {
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 40px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--primary-gradient);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-form input {
+  padding: 15px 20px;
+  border: 1px solid #e1e1e1;
+  border-radius: var(--border-radius);
+  background-color: #fafafa;
+  font-size: 16px;
+  color: var(--text-color);
+  transition: all var(--transition-speed);
+  box-shadow: var(--input-shadow);
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-form input::placeholder {
+  color: #aaa;
+}
+
+.login-form input:focus {
+  border-color: var(--primary-color);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+}
+
+.login-form button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all var(--transition-speed);
+  box-shadow: var(--button-shadow);
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.login-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(58, 123, 213, 0.4);
+}
+
+.login-form button:hover::before {
+  left: 100%;
+}
+
+.login-form button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(58, 123, 213, 0.3);
+}
+
+.error {
+  color: var(--error-color);
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(255, 71, 87, 0.1);
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+/* Toast customization */
+.toast-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toast-icon {
+  font-size: 18px;
+}
+
+.success-icon {
+  color: var(--success-color);
+}
+
+.error-icon {
+  color: var(--error-color);
+}
+
+.warning-icon {
+  color: var(--warning-color);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .login-container {
+    max-width: 85%;
+    margin: 60px auto;
+    padding: 30px;
+  }
+  
+  .login-form input, 
+  .login-form button {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+  
+  .login-container h2 {
+    font-size: 24px;
+  }
+}
+
+/* Animation for the form elements - fade-in from bottom */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-form input,
+.login-form button {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.login-form input:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.login-form input:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.login-form button {
+  animation-delay: 0.3s;
+}
