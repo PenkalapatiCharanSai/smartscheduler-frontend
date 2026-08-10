@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "./api";
 import "./css/GroupSchedules.css";
 
 const GroupSchedules = ({ refreshTrigger }) => {
   const [groupSchedules, setGroupSchedules] = useState({});
   const [professors, setProfessors] = useState([]);
-  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState("1");
   const [loading, setLoading] = useState(false);
 
   const groups = ["1", "2", "3", "4", "5", "6", "7", "8"];
@@ -35,17 +35,21 @@ const GroupSchedules = ({ refreshTrigger }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const profResponse = await axios.get("http://localhost:8000/api/schedules/professors");
-        setProfessors(profResponse.data);
+        const profResponse = await api.get("/api/schedules/professors");
+        setProfessors(profResponse.data || []);
 
         const schedules = {};
         for (const group of groups) {
-          const response = await axios.get(`http://localhost:8000/api/schedules/group/${group}`);
-          schedules[group] = response.data || [];
+          try {
+            const response = await api.get(`/api/schedules/group/${group}`);
+            schedules[group] = response.data || [];
+          } catch (e) {
+            schedules[group] = [];
+          }
         }
         setGroupSchedules(schedules);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching group schedule data:", error);
       } finally {
         setLoading(false);
       }
@@ -54,12 +58,11 @@ const GroupSchedules = ({ refreshTrigger }) => {
   }, [refreshTrigger]);
 
   const getProfessorFullName = (username) => {
-    const professor = professors.find(prof => prof.username === username);
-    return professor ? professor.fullName : username;
+    const professor = professors.find(prof => prof.username.toLowerCase() === username.toLowerCase());
+    return professor ? (professor.fullName || professor.username) : username;
   };
 
   const getScheduleForSlot = (group, day, timeSlot) => {
-    // If it's a special slot (Break or Lunch), return the special slot name
     if (specialSlots[timeSlot]) {
       return specialSlots[timeSlot];
     }
@@ -70,7 +73,7 @@ const GroupSchedules = ({ refreshTrigger }) => {
       const normalizedDay = dayMap[s.day] || s.day;
       return normalizedDay === day && s.startTime === startTime && s.endTime === endTime;
     });
-    return schedule ? schedule.subject : "-";
+    return schedule ? `${schedule.subject} (${schedule.professor})` : "-";
   };
 
   const getFacultyDetails = (group) => {
@@ -89,6 +92,7 @@ const GroupSchedules = ({ refreshTrigger }) => {
   return (
     <div className="group-schedules-container">
       <h2>Group Schedules</h2>
+
       <div className="group-buttons">
         {groups.map(group => (
           <button
@@ -108,8 +112,10 @@ const GroupSchedules = ({ refreshTrigger }) => {
       ) : selectedGroup ? (
         <div className="timetable">
           <h3>Group {selectedGroup} Timetable</h3>
-          {groupSchedules[selectedGroup]?.length === 0 && (
-            <p>No schedules assigned for Group {selectedGroup}.</p>
+          {(!groupSchedules[selectedGroup] || groupSchedules[selectedGroup].length === 0) && (
+            <p className="no-schedules" style={{ margin: "1rem 0", color: "#666" }}>
+              No schedules assigned for Group {selectedGroup} yet.
+            </p>
           )}
           <table>
             <thead>
@@ -128,7 +134,7 @@ const GroupSchedules = ({ refreshTrigger }) => {
             <tbody>
               {days.map(day => (
                 <tr key={day}>
-                  <td>{day}</td>
+                  <td><strong>{day}</strong></td>
                   {timeSlots.map(slot => (
                     <td 
                       key={slot} 
@@ -142,9 +148,9 @@ const GroupSchedules = ({ refreshTrigger }) => {
             </tbody>
           </table>
 
-          {groupSchedules[selectedGroup]?.length > 0 && (
-            <div className="faculty-details">
-              <h4>Faculty Details</h4>
+          {groupSchedules[selectedGroup] && groupSchedules[selectedGroup].length > 0 && (
+            <div className="faculty-details" style={{ marginTop: "2rem" }}>
+              <h4>Faculty Details for Group {selectedGroup}</h4>
               <table>
                 <thead>
                   <tr>

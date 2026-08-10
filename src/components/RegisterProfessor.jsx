@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaUser, FaBook, FaPlus, FaMinus, FaArrowLeft, FaSave, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import { api } from "./api";
 import "./css/RegisterProfessor.css";
 
-const RegisterProfessor = () => {
+const RegisterProfessor = ({ refreshTrigger }) => {
   const [formData, setFormData] = useState({
     user_id: "",
     username: "",
@@ -17,7 +17,25 @@ const RegisterProfessor = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState("");
+  const [professorList, setProfessorList] = useState([]);
+  const [loadingProfessors, setLoadingProfessors] = useState(false);
   const navigate = useNavigate();
+
+  const fetchProfessors = async () => {
+    setLoadingProfessors(true);
+    try {
+      const res = await api.get("/api/schedules/professors");
+      setProfessorList(res.data || []);
+    } catch (err) {
+      console.error("Error fetching professor list:", err);
+    } finally {
+      setLoadingProfessors(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchProfessors();
+  }, [refreshTrigger]);
 
   const validatePassword = (password) => {
     if (password.length < 6) {
@@ -117,8 +135,8 @@ const RegisterProfessor = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/users/register-professor",
+      const response = await api.post(
+        "/api/users/register-professor",
         { ...formData, role: "PROFESSOR" },
         {
           headers: {
@@ -151,6 +169,7 @@ const RegisterProfessor = () => {
         subjects: [{ subjectName: "", subjectId: "" }]
       });
       setPasswordStrength("");
+      fetchProfessors();
     } catch (error) {
       console.error("Error registering professor:", error);
       const errorMsg = error.response?.data?.message || "Failed to register professor.";
@@ -372,6 +391,49 @@ const RegisterProfessor = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      <div className="register-form-wrapper" style={{ marginTop: "2rem" }}>
+        <h3 className="section-title" style={{ marginBottom: "1rem" }}>
+          <FaUser className="section-title-icon" />
+          Registered Professors ({professorList.length})
+        </h3>
+        {loadingProfessors ? (
+          <p>Loading registered professors...</p>
+        ) : professorList.length === 0 ? (
+          <p>No registered professors found in database.</p>
+        ) : (
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <thead>
+              <tr style={{ background: "#f5f5f5", borderBottom: "2px solid #ddd" }}>
+                <th style={{ padding: "10px" }}>User ID</th>
+                <th style={{ padding: "10px" }}>Full Name</th>
+                <th style={{ padding: "10px" }}>Username</th>
+                <th style={{ padding: "10px" }}>Subjects</th>
+              </tr>
+            </thead>
+            <tbody>
+              {professorList.map((prof) => (
+                <tr key={prof._id || prof.user_id || prof.username} style={{ borderBottom: "1px solid #eee" }}>
+                  <td style={{ padding: "10px" }}>{prof.user_id || "-"}</td>
+                  <td style={{ padding: "10px", fontWeight: "bold" }}>{prof.fullName || prof.username}</td>
+                  <td style={{ padding: "10px" }}>@{prof.username}</td>
+                  <td style={{ padding: "10px" }}>
+                    {prof.subjects && prof.subjects.length > 0 ? (
+                      prof.subjects.map((sub, idx) => (
+                        <span key={idx} style={{ display: "inline-block", background: "#e8eaf6", color: "#303f9f", padding: "2px 8px", borderRadius: "12px", fontSize: "0.85rem", marginRight: "4px" }}>
+                          {sub.subjectName} ({sub.subjectId})
+                        </span>
+                      ))
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api } from "./api";
 import "./css/ViewSchedule.css";
 
 const ViewSchedule = () => {
@@ -22,8 +22,8 @@ const ViewSchedule = () => {
       }
 
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/professor/professor-schedule/${username}`,
+        const response = await api.get(
+          `/api/professor/professor-schedule/${username}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

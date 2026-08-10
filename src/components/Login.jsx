@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./css/Login.css";
 import { FaCheckCircle, FaTimesCircle, FaExclamationTriangle } from "react-icons/fa";
+import { api } from "./api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,10 +15,9 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/users/login",
-        { username, password },
-        { headers: { "Content-Type": "application/json" } }
+      const response = await api.post(
+        "/api/users/login",
+        { username, password }
       );
 
       console.log("Login Response:", response.data); // Debug: Check the response
